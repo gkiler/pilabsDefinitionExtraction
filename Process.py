@@ -12,11 +12,11 @@ def gather_definitions():
     print("> Gathering definitions...")
 
     df_saved = pd.read_csv("C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\data.csv", nrows=None)
-    df_saved.head(3)
-
+    print(df_saved.head(3))
+    
     beg_t = time.time()
 
-    def parseDefinitions(raw_html, source_name, concept_name):
+    def parseDefinitions(raw_html, source_name, concept_name, source_url, date_time_scraped, concept_type, CUI):
         if "drugs.com" in source_name.lower(): # drugs.com is the source
             parse_only = SoupStrainer(attrs = {"class" : "contentBox"})
             bs = BeautifulSoup(raw_html, "lxml", parse_only=parse_only)
@@ -25,6 +25,11 @@ def gather_definitions():
             if len(mydivs) == 0:
                 return None
             interest_p = mydivs[0].find_all("p", attrs={"class" : None})[0:]
+            string += ' \n SOURCEURLBEGIN ' + source_url + ' SOURCEURLEND\n'
+            string += ' \n DATETIMEBEGIN ' + date_time_scraped + ' DATETIMEEND\n'
+            string += ' \n SOURCENAMEBEGIN ' + source_name + ' SOURCENAMEEND\n'
+            string += ' \n CONCEPTTYPEBEGIN ' + concept_type + ' CONCEPTTYPEEND\n' 
+            string += ' \n CUIBEGIN ' + str(CUI) + ' CUIEND\n'
             string += ' \n DRUGBEGIN ' + concept_name + ' DRUGEND\n'
             for p in interest_p:
                 string += p.text
@@ -38,6 +43,11 @@ def gather_definitions():
             if len(mydivs) == 0:
                 return None
             interest_p = mydivs[0].find_all("p", attrs={"class" : None})[0:]
+            string += ' \n SOURCEURLBEGIN ' + source_url + ' SOURCEURLEND\n'
+            string += ' \n DATETIMEBEGIN ' + date_time_scraped + ' DATETIMEEND\n'
+            string += ' \n SOURCENAMEBEGIN ' + source_name + ' SOURCENAMEEND\n'
+            string += ' \n CONCEPTTYPEBEGIN ' + concept_type + ' CONCEPTTYPEEND\n' 
+            string += ' \n CUIBEGIN ' + str(CUI) + ' CUIEND\n'
             string += ' \n DRUGBEGIN ' + concept_name + ' DRUGEND\n'
             for p in interest_p:
                 string += p.text
@@ -51,6 +61,11 @@ def gather_definitions():
             if len(mydivs) == 0:
                 return None
             interest_p = mydivs[0].find_all("p", attrs={"class" : None})[0:]
+            string += ' \n SOURCEURLBEGIN ' + source_url + ' SOURCEURLEND\n'
+            string += ' \n DATETIMEBEGIN ' + date_time_scraped + ' DATETIMEEND\n'
+            string += ' \n SOURCENAMEBEGIN ' + source_name + ' SOURCENAMEEND\n'
+            string += ' \n CONCEPTTYPEBEGIN ' + concept_type + ' CONCEPTTYPEEND\n' 
+            string += ' \n CUIBEGIN ' + str(CUI) + ' CUIEND\n'
             string += ' \n DRUGBEGIN ' + concept_name + ' DRUGEND\n'
             for p in interest_p:
                 string += p.text
@@ -65,6 +80,11 @@ def gather_definitions():
             if len(mydivs) == 0:
                 return None
             interest_p = mydivs[0].find_all("p", attrs={"class" : None})[0:]
+            string += ' \n SOURCEURLBEGIN ' + source_url + ' SOURCEURLEND\n'
+            string += ' \n DATETIMEBEGIN ' + date_time_scraped + ' DATETIMEEND\n'
+            string += ' \n SOURCENAMEBEGIN ' + source_name + ' SOURCENAMEEND\n'
+            string += ' \n CONCEPTTYPEBEGIN ' + concept_type + ' CONCEPTTYPEEND\n' 
+            string += ' \n CUIBEGIN ' + str(CUI) + ' CUIEND\n'
             string += ' \n DRUGBEGIN ' + concept_name + ' DRUGEND\n'
             for p in interest_p:
                 string += p.text
@@ -79,6 +99,11 @@ def gather_definitions():
             if len(mydivs) == 0:
                 return None
             interest_p = mydivs[0].find_all("p", attrs={"class" : None})[0:]
+            string += ' \n SOURCEURLBEGIN ' + source_url + ' SOURCEURLEND\n'
+            string += ' \n DATETIMEBEGIN ' + date_time_scraped + ' DATETIMEEND\n'
+            string += ' \n SOURCENAMEBEGIN ' + source_name + ' SOURCENAMEEND\n'
+            string += ' \n CONCEPTTYPEBEGIN ' + concept_type + ' CONCEPTTYPEEND\n' 
+            string += ' \n CUIBEGIN ' + str(CUI) + ' CUIEND\n'
             string += ' \n DRUGBEGIN ' + concept_name + ' DRUGEND\n'
             for p in interest_p:
                 string += p.text
@@ -93,6 +118,11 @@ def gather_definitions():
             if len(mydivs) == 0:
                 return None
             interest_p = mydivs[0].find_all("p", attrs={"class" : None})[0:]
+            string += ' \n SOURCEURLBEGIN ' + source_url + ' SOURCEURLEND\n'
+            string += ' \n DATETIMEBEGIN ' + date_time_scraped + ' DATETIMEEND\n'
+            string += ' \n SOURCENAMEBEGIN ' + source_name + ' SOURCENAMEEND\n'
+            string += ' \n CONCEPTTYPEBEGIN ' + concept_type + ' CONCEPTTYPEEND\n' 
+            string += ' \n CUIBEGIN ' + str(CUI) + ' CUIEND\n'
             string += ' \n DRUGBEGIN ' + concept_name + ' DRUGEND\n'
             for p in interest_p:
                 string += p.text
@@ -106,7 +136,7 @@ def gather_definitions():
     print("> Extracting many definitions (this may take a while)...")
     with io.open('drug_concat.txt','w',encoding='utf-8') as f:
         f.write('')
-    df_saved["definition"] = df_saved.apply(lambda x : parseDefinitions(x["raw_html"], x["source_name"], x["name"]), axis=1)
+    df_saved["definition"] = df_saved.apply(lambda x : parseDefinitions(x["raw_html"], x["source_name"], x["name"], x["source_url"], x["date_time_scraped"], x["concept_type"], x["CUI"]), axis=1)
     # parseDefinitions(x["raw_html"], x["source_name"], x["name"])
     end_t = time.time()
     print(f"> Total time: {end_t - beg_t}s")
