@@ -1,7 +1,6 @@
 import os
 from pickletools import read_uint1
 import time
-from multiprocessing import Pool
 #requires Unitex installed
 
 def openFile(fileLoc):
@@ -37,7 +36,7 @@ def openFile(fileLoc):
 
 def runGraph(graphLoc, fileSNT, outputFile):
     runGraph = f"UnitexToolLogger Grf2Fst2 \"{graphLoc}.grf\" -y \"--alphabet=C:\\Users\\gwenk\\OneDrive\\Documents\\English\\Alphabet.txt\" -qutf8-no-bom"
-    Locate = f"UnitexToolLogger Locate \"-t{fileSNT}.snt\" \"{graphLoc}.fst2\" \"-aC:\\Users\\gwenk\\OneDrive\\Documents\\English\\Alphabet.txt\" -L -I -n200 -b -Y --stack_max=1000 --max_matches_per_subgraph=200 --max_matches_at_token_pos=400 --max_errors=50 -qutf8-no-bom"
+    Locate = f"UnitexToolLogger Locate \"-t{fileSNT}.snt\" \"{graphLoc}.fst2\" \"-aC:\\Users\\gwenk\\OneDrive\\Documents\\English\\Alphabet.txt\" -L -I --all -b -Y --stack_max=1000 --max_matches_per_subgraph=200 --max_matches_at_token_pos=400 --max_errors=50 -qutf8-no-bom"
     Extract = f"UnitexToolLogger Extract --yes \"{fileSNT}.snt\" \"-i{fileSNT}_snt\\concord.ind\" \"-o{outputFile}\" -qutf8-no-bom"
     newDir = f"mkdir \"{fileSNT}_snt\" "
 
@@ -45,54 +44,31 @@ def runGraph(graphLoc, fileSNT, outputFile):
     os.system(Locate)
     os.system(newDir)
     os.system(Extract)
+    
+
 
 def multip(graphLoc, name, outputFile):
-    openFile(name)
     print('Running ' + name + '...')
+    openFile(name)
     runGraph(graphLoc, name, outputFile)
 
 if __name__ == '__main__':
     print("\nUnitex Python Script Wrapper\n")
     graphName = input("Input name of graph (no extension): ")
-    # fileName = input("Input name of input file (no extension): ")
+    fileName = input("Input name of input file (no extension): ")
 
     graphLoc = "C:\\Users\\gwenk\\OneDrive\\Documents\\English\\Graphs\\" + graphName #defs  
-    # fileLoc = "C:\\Users\\gwenk\\OneDrive\\Documents\\English\\Corpus\\" + fileName #concatPureText
-    # outputFile = "C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\" #extractUses.txt
+    fileLoc = "C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\" + fileName #concatPureText
+    outputFile = "C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\" #extractUses.txt
 
     drugPath = "C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\ReadFrom"
     out = "C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\"
-    beg_t = time.time()
-    fileList = []
-    for file in os.listdir(drugPath):
-        if file.endswith(".txt"):
-            filePath = drugPath + "\\" + file[:-4]
-                # openFile(filePath)
-                # runGraph(graphLoc, filePath, out+file)
-            fileList.append(filePath)
-    
-    # for root, dirs, files in os.walk(drugPath):
-    #     for file in files[:100]:
-    #         if os.path.splitext(file)[1] == '.txt':
-    #             filePath = drugPath + "\\" + file[:-4]
-    #             # openFile(filePath)
-    #             # runGraph(graphLoc, filePath, out+file)
-    #             fileList.append(filePath)
-    print(len(fileList))
-    end_t = time.time()
-    print(f"Total time: {end_t - beg_t}s") 
 
-
-    p = Pool(processes=len(fileList))
+    out = outputFile + fileName + "Output.txt"
     start = time.time()
     print("Begin work...")
-    async_result = p.map_async(multip,graphLoc, fileList, out+file)
-    p.close()
-    p.join()
+    openFile(fileLoc)
+    runGraph(graphLoc, fileLoc, out)
     end = time.time()
     print('Finished')
     print('Total time: '+str(end-start)+'s')
-                   
-    # openFile(fileLoc)
-    # runGraph(graphLoc,fileLoc, outputFile)
-
