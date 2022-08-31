@@ -62,8 +62,8 @@ if __name__ == '__main__':
     graphName = input("Input name of graph (no extension): ")
     fileName = input("Input name of input file (no extension): ")
 
-    graphLoc = "{UNITEX_PATH}\\English\\Graphs\\" + graphName 
-    fileLoc = FILE_INPUT_DIR + fileName 
+    graphLoc = f"{UNITEX_PATH}\\English\\Graphs\\" + graphName 
+    fileLoc = FILE_INPUT_DIR + fileName
     outputFile = FILE_OUTPUT_DIR 
 
     out = outputFile + fileName + "Output.txt"

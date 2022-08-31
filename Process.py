@@ -6,12 +6,16 @@ import time
 from bs4 import BeautifulSoup, SoupStrainer
 import io
 from pathvalidate import sanitize_filename 
+from tqdm import tqdm
+tqdm.pandas()
+
+CSV_SOURCE="C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\data.csv"
 
 def gather_definitions():
     # do stuff to gather definitions
     print("> Gathering definitions...")
 
-    df_saved = pd.read_csv("C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\data.csv", nrows=None)
+    df_saved = pd.read_csv(CSV_SOURCE, nrows=None)
     print(df_saved.head(3))
     
     beg_t = time.time()
@@ -136,7 +140,7 @@ def gather_definitions():
     print("> Extracting many definitions (this may take a while)...")
     with io.open('drug_concat.txt','w',encoding='utf-8') as f:
         f.write('')
-    df_saved["definition"] = df_saved.apply(lambda x : parseDefinitions(x["raw_html"], x["source_name"], x["name"], x["source_url"], x["date_time_scraped"], x["concept_type"], x["CUI"]), axis=1)
+    df_saved["definition"] = df_saved.progress_apply(lambda x : parseDefinitions(x["raw_html"], x["source_name"], x["name"], x["source_url"], x["date_time_scraped"], x["concept_type"], x["CUI"]), axis=1)
     # parseDefinitions(x["raw_html"], x["source_name"], x["name"])
     end_t = time.time()
     print(f"> Total time: {end_t - beg_t}s")
