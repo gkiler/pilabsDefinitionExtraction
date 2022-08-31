@@ -1,0 +1,79 @@
+#Unigraph
+SIZE 3000 3000
+FONT Times New Roman:  10
+OFONT Arial Unicode MS:B 12
+BCOLOR 16777215
+FCOLOR 0
+ACOLOR 13487565
+SCOLOR 16711680
+CCOLOR 255
+DBOXES y
+DFRAME y
+DDATE y
+DFILE y
+DDIR n
+DRIG n
+DRST n
+FITS 100
+PORIENT L
+#
+59
+"<E>" 24 346 7 22 25 27 28 29 30 31 
+"" 1203 327 0 
+"is used" 662 288 1 24 
+"<E>" 335 379 7 18 9 5 11 4 2 43 
+"\"has been found to be helpful\"" 556 339 1 24 
+"is" 500 418 1 19 
+"\"that prevents\"" 714 410 1 24 
+"<WORD>" 587 404 5 6 7 12 32 42 
+"it is used to" 651 227 1 24 
+"\"blocks the actions\"" 496 489 1 10 
+"<E>" 824 605 1 24 
+"are" 508 375 2 7 20 
+"\"used to\"" 716 379 1 24 
+"\"It helps your\"" 504 576 1 10 
+"<E>" 335 615 4 13 23 34 35 
+"<E>" 324 223 1 8 
+"consult your pharmacist or physician" 559 196 1 24 
+"<E>" 324 192 1 16 
+"\"is not for use\"" 492 532 1 10 
+"a+an" 543 419 1 7 
+"<E>" 658 371 1 12 
+"<E>" 1103 327 1 1 
+"<E>" 110 346 5 17 15 14 3 44 
+"\"Use\:\"" 519 618 1 10 
+"<E>" 956 353 1 21 
+"DRUGBEGIN" 143 154 1 26 
+"<E>" 871 154 1 1 
+"SOURCEURLBEGIN" 143 131 1 26 
+"DATETIMEBEGIN" 143 110 1 26 
+"SOURCENAMEBEGIN" 143 87 1 26 
+"CONCEPTTYPEBEGIN" 143 65 1 26 
+"CUIBEGIN" 143 42 1 26 
+"\"which provides relief\"" 695 443 1 24 
+"prevent" 614 654 1 10 
+"<WORD>" 423 658 2 40 41 
+"\"relieves\"" 412 715 2 36 37 
+"<WORD>" 561 716 1 10 
+"<WORD>" 560 750 1 38 
+"and" 642 749 1 39 
+"<WORD>" 689 748 1 10 
+"can" 534 647 1 33 
+"are used to" 523 673 1 33 
+"\"used during\"+\"used after\"+\"used with\"" 710 493 1 24 
+"\"is also used\"" 648 261 1 24 
+"<E>" 196 941 10 45 47 49 50 51 52 53 54 57 58 
+"\"is sometimes prescribed for other uses\"" 427 812 1 46 
+"<E>" 854 907 1 24 
+"<WORD>" 407 860 1 48 
+"\"slows the growth of\"" 531 857 1 46 
+"\"is required by your body for\"" 447 920 1 46 
+"\"will relieve symptoms but will not treat\"" 435 973 1 46 
+"is in a class of medications" 492 1019 1 46 
+"\"eliminates bacteria that cause\"" 491 1053 1 46 
+"<WORD>, an antibiotic" 512 1099 1 46 
+"<WORD>" 475 1143 2 55 56 
+"relieves" 599 1142 1 46 
+"<WORD>" 479 1187 1 55 
+"helps control the symptoms of" 482 1227 1 46 
+"it can prevent" 504 1294 1 46 
