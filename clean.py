@@ -20,9 +20,9 @@ def parseDefinitions(raw_html):
     raw_out = re.sub(' +', ' ', raw_out)
     return raw_out
 
-csv_path = ""
+csv_path = "C:\Users\gwenk\OneDrive\Documents\GitHub\pilabsDefinitionExtraction\\data.csv"
 df_saved = pd.read_csv(csv_path, nrows=None)
 
 df_saved["clean_text"] = df_saved.progress_apply(lambda x : parseDefinitions(x["raw_html"]), axis=1)
 df_saved = df_saved.drop(["raw_html"], axis=1)
-df_saved.to_parquet('clean_data.csv', engine='pyarrow')
+df_saved.to_parquet('clean_data.parquet', engine='pyarrow')

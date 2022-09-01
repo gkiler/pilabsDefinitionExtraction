@@ -22,11 +22,12 @@ def parseDefinitions(clean_text, source_name, concept_name, source_url, date_tim
         f.write(' \n SOURCEURLBEGIN ' + source_url + ' SOURCEURLEND\n DATETIMEBEGIN ' + date_time_scraped + ' DATETIMEEND\n SOURCENAMEBEGIN ' + source_name + ' SOURCENAMEEND\n CONCEPTTYPEBEGIN ' + concept_type + ' CONCEPTTYPEEND\n CUIBEGIN ' + str(CUI) + ' CUIEND\n DRUGBEGIN ' + concept_name + ' DRUGEND\n' + clean_text)
 
 print("> Gathering definitions...")
-csv_path = "C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\clean_data.csv"
+csv_path = "C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\clean_data.csv"
 
 begin = time.time()
+df = pd.read_csv(csv_path, engine="python")
+df.to_parquet(csv_path, engine="pyarrow", compression="snappy")
 df = pd.read_parquet(csv_path, engine="pyarrow")
-# df.to_parquet(csv_path, engine="pyarrow", compression="snappy")
 
 end = time.time()
 print('load time: ' + str(end - begin))

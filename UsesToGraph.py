@@ -9,9 +9,9 @@ import time
 import io
 tqdm.pandas()
 
-filein = "C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_concat_testOutput.txt" 
-fileout = "C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_concat_filtered_Output.csv"
-newcsvout = "C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_maytreat_concat.csv"
+filein = "C:\\Users\\gwenk\\OneDrive\\Documents\GitHub\\pilabsDefinitionExtraction\\Output\\drug_concat_testOutput.txt" 
+fileout = "C:\\Users\\gwenk\\OneDrive\\Documents\GitHub\\pilabsDefinitionExtraction\\Output\\drug_concat_filtered_Output.csv"
+newcsvout = "C:\\Users\\gwenk\\OneDrive\\Documents\GitHub\\pilabsDefinitionExtraction\\Output\\drug_maytreat_concat.csv"
 
 def remove_fluff(filein,fileout):
     word_list= ["DRUGBEGIN", "DRUGEND", "SOURCEURLBEGIN", "SOURCEURLEND", "DATETIMEBEGIN", "DATETIMEEND", "CUIBEGIN", "CUIEND", "SOURCENAMEBEGIN", "SOURCENAMEEND", "CONCEPTTYPEBEGIN", "CONCEPTTYPEEND"]

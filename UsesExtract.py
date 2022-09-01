@@ -3,10 +3,10 @@ from pickletools import read_uint1
 import time
 #requires Unitex installed
 
-UNITEX_PATH="C:\\Users\\nickk\\Documents\\Unitex-GramLab\\Unitex" #change to where "English" folder is installed
-FILE_INPUT_DIR="C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\" #change to file input directory
-FILE_OUTPUT_DIR="C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\" #same as above for output
-GRAMLAB_PATH="C:\\Users\\nickk\\AppData\\Local" #change to source of UnitexGramlab folder 
+UNITEX_PATH="C:\\Users\\gwenk\\Documents\\" #change to where "English" folder is installed
+FILE_INPUT_DIR="C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction" #change to file input directory
+FILE_OUTPUT_DIR="C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\" #same as above for output
+GRAMLAB_PATH="C:\\Users\\gwenk\\AppData\\Local" #change to source of UnitexGramlab folder 
 
 def openFile(fileLoc):
     openFileSNT = f"mkdir \"{fileLoc}_snt\""
