@@ -17,63 +17,83 @@ DRST n
 FITS 100
 PORIENT L
 #
-59
-"<E>" 24 346 7 22 25 27 28 29 30 31 
+79
+"<E>" 24 346 7 20 22 24 25 26 27 28 
 "" 1203 327 0 
-"is used" 662 288 1 24 
-"<E>" 335 379 7 18 9 5 11 4 2 43 
-"\"has been found to be helpful\"" 556 339 1 24 
-"is" 500 418 1 19 
-"\"that prevents\"" 714 410 1 24 
-"<WORD>" 587 404 5 6 7 12 32 42 
-"it is used to" 651 227 1 24 
-"\"blocks the actions\"" 496 489 1 10 
-"<E>" 824 605 1 24 
-"are" 508 375 2 7 20 
-"\"used to\"" 716 379 1 24 
-"\"It helps your\"" 504 576 1 10 
-"<E>" 335 615 4 13 23 34 35 
-"<E>" 324 223 1 8 
-"consult your pharmacist or physician" 559 196 1 24 
-"<E>" 324 192 1 16 
-"\"is not for use\"" 492 532 1 10 
-"a+an" 543 419 1 7 
-"<E>" 658 371 1 12 
+"is used" 640 161 1 21 
+"<E>" 187 355 10 16 8 5 10 4 69 70 73 76 78 
+"\"has been found to be helpful\"" 534 212 1 21 
+"is+will be" 407 334 3 17 11 66 
+"<WORD>" 548 260 4 6 11 29 64 
+"it is used to" 633 114 1 21 
+"\"blocks the actions\"" 383 717 1 9 
+"<E>" 814 810 1 21 
+"are" 482 254 2 6 18 
+"used+that+used to" 701 269 1 55 
+"\"It helps your\"" 407 797 1 9 
+"<E>" 325 820 3 12 31 32 
+"Consult your" 523 68 1 63 
+"<E>" 319 125 1 14 
+"\"is not for use\"" 395 753 1 9 
+"a+an" 506 295 3 6 11 64 
+"<E>" 647 232 1 11 
 "<E>" 1103 327 1 1 
-"<E>" 110 346 5 17 15 14 3 44 
-"\"Use\:\"" 519 618 1 10 
-"<E>" 956 353 1 21 
-"DRUGBEGIN" 143 154 1 26 
-"<E>" 871 154 1 1 
-"SOURCEURLBEGIN" 143 131 1 26 
-"DATETIMEBEGIN" 143 110 1 26 
-"SOURCENAMEBEGIN" 143 87 1 26 
-"CONCEPTTYPEBEGIN" 143 65 1 26 
-"CUIBEGIN" 143 42 1 26 
-"\"which provides relief\"" 695 443 1 24 
-"prevent" 614 654 1 10 
-"<WORD>" 423 658 2 40 41 
-"\"relieves\"" 412 715 2 36 37 
-"<WORD>" 561 716 1 10 
-"<WORD>" 560 750 1 38 
-"and" 642 749 1 39 
-"<WORD>" 689 748 1 10 
-"can" 534 647 1 33 
-"are used to" 523 673 1 33 
-"\"used during\"+\"used after\"+\"used with\"" 710 493 1 24 
-"\"is also used\"" 648 261 1 24 
-"<E>" 196 941 10 45 47 49 50 51 52 53 54 57 58 
-"\"is sometimes prescribed for other uses\"" 427 812 1 46 
-"<E>" 854 907 1 24 
-"<WORD>" 407 860 1 48 
-"\"slows the growth of\"" 531 857 1 46 
-"\"is required by your body for\"" 447 920 1 46 
-"\"will relieve symptoms but will not treat\"" 435 973 1 46 
-"is in a class of medications" 492 1019 1 46 
-"\"eliminates bacteria that cause\"" 491 1053 1 46 
-"<WORD>, an antibiotic" 512 1099 1 46 
-"<WORD>" 475 1143 2 55 56 
-"relieves" 599 1142 1 46 
-"<WORD>" 479 1187 1 55 
-"helps control the symptoms of" 482 1227 1 46 
-"it can prevent" 504 1294 1 46 
+"<E>" 110 346 4 15 13 3 40 
+"<E>" 956 353 1 19 
+"DRUGBEGIN" 143 154 1 23 
+"<E>" 386 26 1 62 
+"SOURCEURLBEGIN" 143 131 1 23 
+"DATETIMEBEGIN" 143 110 1 23 
+"SOURCENAMEBEGIN" 143 87 1 23 
+"CONCEPTTYPEBEGIN" 143 65 1 23 
+"CUIBEGIN" 143 42 1 23 
+"\"which provides relief\"" 679 346 1 21 
+"prevent" 604 859 1 9 
+"<WORD>" 413 863 2 37 38 
+"\"relieves\"" 402 920 2 33 34 
+"<WORD>" 551 921 1 9 
+"<WORD>" 550 955 1 35 
+"and" 632 954 1 36 
+"<WORD>" 679 953 1 9 
+"can" 524 852 1 30 
+"are used to" 513 878 1 30 
+"\"is also used\"" 626 134 1 21 
+"<E>" 194 1261 12 41 43 45 46 47 48 49 50 53 54 56 57 
+"\"is sometimes prescribed for other uses\"" 417 1017 1 42 
+"<E>" 852 1362 1 21 
+"<WORD>" 397 1065 1 44 
+"\"slows the growth of\"" 521 1062 1 42 
+"\"is required by your body for\"" 437 1125 1 42 
+"\"will relieve symptoms but will not treat\"" 425 1178 1 42 
+"is in a class of medications" 482 1224 1 42 
+"\"eliminates bacteria that cause\"" 481 1258 1 42 
+"<WORD>, an antibiotic" 502 1304 1 42 
+"<WORD>" 465 1348 2 51 52 
+"relieves" 589 1347 1 42 
+"<WORD>" 469 1392 1 51 
+"helps control the symptoms of" 472 1432 1 42 
+"it can prevent" 494 1499 1 42 
+"to+as+prevents+during+after+with+prevent+treat+treat or prevent" 775 241 1 21 
+"is a fat-soluble vitamin" 468 1541 1 42 
+"This" 403 1595 1 58 
+"medication" 474 1593 1 59 
+"is" 575 1593 1 60 
+"a+<E>" 622 1588 1 61 
+"multivitamin+mineral+fatty acid" 697 1534 1 42 
+"<E>" 1089 33 1 1 
+"pharmacist+physician+pharmacist or physician" 659 69 1 21 
+"type of" 686 389 1 65 
+"antiviral medication" 751 387 1 21 
+"for+indicated for+designed to be" 478 394 1 67 
+"the treatment of+use as a+topical application+metered by an apheresis device+use in the" 586 449 1 68 
+"<E>" 888 414 1 21 
+"<E>" 360 153 3 7 39 2 
+"in combination with" 450 624 1 72 
+"aromatase inhibitor+fulvestrant to treat" 685 631 1 68 
+"an+a+<E>" 604 647 1 71 
+"alone" 475 689 1 74 
+"to treat" 590 719 1 75 
+"adults with" 699 703 1 68 
+"provides" 409 445 1 77 
+"antimicrobial activity" 494 544 1 68 
+"is converted in the body to vitamin" 458 577 1 68 

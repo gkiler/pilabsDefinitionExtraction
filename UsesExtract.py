@@ -3,10 +3,10 @@ from pickletools import read_uint1
 import time
 #requires Unitex installed
 
-UNITEX_PATH="C:\\Users\\gwenk\\OneDrive\\Documents" #change to where "English" folder is installed
-FILE_INPUT_DIR="C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\" #change to file input directory
-FILE_OUTPUT_DIR="C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\" #same as above for output
-GRAMLAB_PATH="C:\\Users\\gwenk\\AppData\\Local" #change to source of UnitexGramlab folder 
+UNITEX_PATH="C:\\Users\\nickk\\Documents\\Unitex-GramLab\\Unitex" #change to where "English" folder is installed
+FILE_INPUT_DIR="C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\" #change to file input directory
+FILE_OUTPUT_DIR="C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\" #same as above for output
+GRAMLAB_PATH="C:\\Users\\nickk\\AppData\\Local" #change to source of UnitexGramlab folder 
 
 def openFile(fileLoc):
     openFileSNT = f"mkdir \"{fileLoc}_snt\""
@@ -17,13 +17,6 @@ def openFile(fileLoc):
     Fst2Txt = f"UnitexToolLogger Fst2Txt \"-t{fileLoc}.snt\" \"{UNITEX_PATH}\\English\\Graphs\\Preprocessing\\Sentence\\Sentence.fst2\" \"-a{UNITEX_PATH}\\English\\Alphabet.txt\" -M \"--input_offsets={fileLoc}_snt\\normalize.out.offsets\" \"--output_offsets={fileLoc}_snt\\normalize.out.offsets\" -qutf8-no-bom"
     Grf2Fst2_2 = f"UnitexToolLogger Grf2Fst2 \"{UNITEX_PATH}\\English\\Graphs\\Preprocessing\\Replace\\Replace.grf\" -y \"--alphabet={UNITEX_PATH}\\English\\Alphabet.txt\" -qutf8-no-bom"
     Fst2Txt_2 = f"UnitexToolLogger Fst2Txt \"-t{fileLoc}.snt\" \"{UNITEX_PATH}\\English\\Graphs\\Preprocessing\\Replace\\Replace.fst2\" \"-a{UNITEX_PATH}\\English\\Alphabet.txt\" -R \"--input_offsets={fileLoc}_snt\\normalize.out.offsets\" \"--output_offsets={fileLoc}_snt\\normalize.out.offsets\" -qutf8-no-bom"
-
-    Dico = f"UnitexToolLogger Dico \"-t{fileLoc}.snt\" \"-a{UNITEX_PATH}\\English\\Alphabet.txt\" \"{GRAMLAB_PATH}\\Unitex-GramLab\\English\\Dela\\dela-en-public.bin\" \"{GRAMLAB_PATH}\\Unitex-GramLab\\English\\Dela\\Dnum.fst2\" -qutf8-no-bom"
-    SortTxt = f"UnitexToolLogger SortTxt \"{fileLoc}_snt\\dlf\" \"-l{fileLoc}_snt\\dlf.n\" \"-o{UNITEX_PATH}\\English\\Alphabet_sort.txt\" -qutf8-no-bom"
-    SortTxt2 = f"UnitexToolLogger SortTxt \"{fileLoc}_snt\\dlc\" \"-l{fileLoc}_snt\\dlc.n\" \"-o{UNITEX_PATH}\\English\\Alphabet_sort.txt\" -qutf8-no-bom"
-    SortTxt3 = f"UnitexToolLogger SortTxt \"{fileLoc}_snt\\err\" \"-l{fileLoc}_snt\\err.n\" \"-o{UNITEX_PATH}\\English\\Alphabet_sort.txt\" -qutf8-no-bom"
-    SortTxt4 = f"UnitexToolLogger SortTxt \"{fileLoc}_snt\\tags_err\" \"-l{fileLoc}_snt\\tags_err.n\" \"-o{UNITEX_PATH}\\English\\Alphabet_sort.txt\" -qutf8-no-bom"
-
     os.system(openFileSNT)
     os.system(Normalize)
     os.system(Grf2Fst2)
@@ -31,8 +24,17 @@ def openFile(fileLoc):
     os.system(Fst2Txt)
     os.system(Grf2Fst2_2)
     os.system(Fst2Txt_2)
-
     os.system(Tokenize)
+        
+    Dico = f"UnitexToolLogger Dico \"-t{fileLoc}.snt\" \"-a{UNITEX_PATH}\\English\\Alphabet.txt\" \"{GRAMLAB_PATH}\\Unitex-GramLab\\English\\Dela\\dela-en-public.bin\" \"{GRAMLAB_PATH}\\Unitex-GramLab\\English\\Dela\\Dnum.fst2\" -qutf8-no-bom"
+    SortTxt = f"UnitexToolLogger SortTxt \"{fileLoc}_snt\\dlf\" \"-l{fileLoc}_snt\\dlf.n\" \"-o{UNITEX_PATH}\\English\\Alphabet_sort.txt\" -qutf8-no-bom"
+    SortTxt2 = f"UnitexToolLogger SortTxt \"{fileLoc}_snt\\dlc\" \"-l{fileLoc}_snt\\dlc.n\" \"-o{UNITEX_PATH}\\English\\Alphabet_sort.txt\" -qutf8-no-bom"
+    SortTxt3 = f"UnitexToolLogger SortTxt \"{fileLoc}_snt\\err\" \"-l{fileLoc}_snt\\err.n\" \"-o{UNITEX_PATH}\\English\\Alphabet_sort.txt\" -qutf8-no-bom"
+    SortTxt4 = f"UnitexToolLogger SortTxt \"{fileLoc}_snt\\tags_err\" \"-l{fileLoc}_snt\\tags_err.n\" \"-o{UNITEX_PATH}\\English\\Alphabet_sort.txt\" -qutf8-no-bom"
+
+    
+
+    
     os.system(Dico)
     os.system(SortTxt)
     os.system(SortTxt2)
@@ -69,7 +71,11 @@ if __name__ == '__main__':
     out = outputFile + fileName + "Output.txt"
     start = time.time()
     print("Begin work...")
-    openFile(fileLoc)
+    if not os.path.exists(fileLoc+'_snt'):
+        openFile(fileLoc)   
+    else:
+        print(fileLoc+'_snt already exists')
+        
     runGraph(graphLoc, fileLoc, out)
     end = time.time()
     print('Finished')

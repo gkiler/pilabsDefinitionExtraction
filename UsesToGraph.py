@@ -6,11 +6,12 @@ from bs4 import BeautifulSoup, SoupStrainer
 # from utils import info
 from tqdm import tqdm
 import time
+import io
+tqdm.pandas()
 
-
-filein = "C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_concatOutput.txt" 
-fileout = "C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_concat_filtered_Output.csv"
-newcsvout = "C:\\Users\\gwenk\\OneDrive\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_maytreat_concat.csv"
+filein = "C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_concat_testOutput.txt" 
+fileout = "C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_concat_filtered_Output.csv"
+newcsvout = "C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_maytreat_concat.csv"
 
 def remove_fluff(filein,fileout):
     word_list= ["DRUGBEGIN", "DRUGEND", "SOURCEURLBEGIN", "SOURCEURLEND", "DATETIMEBEGIN", "DATETIMEEND", "CUIBEGIN", "CUIEND", "SOURCENAMEBEGIN", "SOURCENAMEEND", "CONCEPTTYPEBEGIN", "CONCEPTTYPEEND"]
@@ -40,8 +41,22 @@ def remove_fluff(filein,fileout):
         fout.write(tempLine)
 
 
-# remove_fluff(filein,fileout)
-
+def drug_todo(drug_name, source_name):
+    with io.open("TODO_drug.txt",'a',encoding='utf-8') as f:
+        f.write(drug_name    + source_name + '\n')
+def error_checking():
+    pd.set_option('display.max_rows', None)
+    df = pd.read_csv(fileout, encoding='utf-8', sep='{S}', engine='python', nrows=None)
+    df = df.query('CONCEPT_TYPE == "  drug "')
+    num_drugs = len(df)
+    df = df.fillna('')
+    df = df.loc[df['MAY_TREAT'] == ''].reset_index()
+    df = df.drop(['index'],axis=1)
+    with io.open("TODO_drug.txt",'w',encoding='utf-8') as f:
+        f.write('')
+    df.progress_apply(lambda x : drug_todo(x["DRUG_NAME"], x["SOURCE_NAME"]),axis=1)
+    print(str(len(df))+" null values")
+    print("may treat % found: " + str(1 - 1.0*len(df)/num_drugs))
 def interpret_table():
     pd.set_option('display.max_rows', None)
     start = time.time()
@@ -52,15 +67,24 @@ def interpret_table():
     start = time.time()
     df = df.fillna('')
     df = df.drop(['SOURCE_URL', 'DATE_TIME_SCRAPED', 'SOURCE_NAME'], axis=1)
-    df = df.groupby('CUI')['MAY_TREAT'].agg(','.join).reset_index()
-    print(df)
+    df = df.query('CONCEPT_TYPE == "  drug "')
+    df = df.groupby(['CUI'])['MAY_TREAT'].agg('|'.join).reset_index()
+    print(df.head(100))
     end = time.time()
     print('Group by CUI time: '+str(end-start))
 
-    df.to_csv(newcsvout, sep=str('|'))
-    # print(df.drop_duplicates(subset=['CUI']).sort_values(by=['CUI']))
-    # aggregate_func = {''}
-    # df_merged = df.groupby(df['CUI']).aggregate()
-
+    df.to_parquet(newcsvout, engine="pyarrow", compression="snappy")
     
-interpret_table()
+def get_statistics():
+    pd.set_option('display.max_rows', None)
+    df = pd.read_parquet(newcsvout, engine="pyarrow")
+    total_len = len(df)
+    CUI_num = (df['MAY_TREAT'] =='').sum()
+    print(df.head(100))
+    print("total len: " + str(total_len))
+    print("misses: " + str(CUI_num))
+   
+remove_fluff(filein,fileout) 
+error_checking()
+# interpret_table()
+# get_statistics()
