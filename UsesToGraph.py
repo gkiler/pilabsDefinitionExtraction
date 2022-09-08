@@ -7,17 +7,26 @@ from bs4 import BeautifulSoup, SoupStrainer
 from tqdm import tqdm
 import time
 import io
+import os
 tqdm.pandas()
 
-filein = "C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_concat_testOutput.txt" 
-fileout = "C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_concat_filtered_Output.csv"
-newcsvout = "C:\\Users\\nickk\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_maytreat_concat.csv"
+CPU_COUNT = max(os.cpu_count() - 1, 1)
+
+filein = "C:\\Users\\\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_extract_output_" 
+fileout = "C:\\Users\\\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_extract_filtered_output.csv"
+newcsvout = "C:\\Users\\\\Documents\\GitHub\\pilabsDefinitionExtraction\\Output\\drug_maytreat_concat.csv"
 
 def remove_fluff(filein,fileout):
+    with open(filein+"full.txt",'w',encoding='utf-8') as fout:
+        fout.write("")
+    for i in range(1, CPU_COUNT+1):
+        with open(filein+str(i)+".txt", 'r', encoding='utf-8') as fin, open(filein+"full.txt", 'a+', encoding='utf-8') as fout:
+            fout.write(fin.read()+'\n')    
+                 
     word_list= ["DRUGBEGIN", "DRUGEND", "SOURCEURLBEGIN", "SOURCEURLEND", "DATETIMEBEGIN", "DATETIMEEND", "CUIBEGIN", "CUIEND", "SOURCENAMEBEGIN", "SOURCENAMEEND", "CONCEPTTYPEBEGIN", "CONCEPTTYPEEND"]
     tempLine = ''
     # count = 0
-    with open(filein, encoding='utf-8') as fin, open(fileout, "w+", encoding='utf-8') as fout:
+    with open(filein+"full.txt", encoding='utf-8') as fin, open(fileout, "w+", encoding='utf-8') as fout:
         fout.write('SOURCE_URL{S}DATE_TIME_SCRAPED{S}SOURCE_NAME{S}CONCEPT_TYPE{S}CUI{S}DRUG_NAME{S}MAY_TREAT\n')
         for line in fin:
             if not any(word in line for word in word_list):
@@ -43,7 +52,8 @@ def remove_fluff(filein,fileout):
 
 def drug_todo(drug_name, source_name):
     with io.open("TODO_drug.txt",'a',encoding='utf-8') as f:
-        f.write(drug_name    + source_name + '\n')
+        f.write(drug_name + source_name + '\n')
+        
 def error_checking():
     pd.set_option('display.max_rows', None)
     df = pd.read_csv(fileout, encoding='utf-8', sep='{S}', engine='python', nrows=None)
@@ -57,19 +67,22 @@ def error_checking():
     df.progress_apply(lambda x : drug_todo(x["DRUG_NAME"], x["SOURCE_NAME"]),axis=1)
     print(str(len(df))+" null values")
     print("may treat % found: " + str(1 - 1.0*len(df)/num_drugs))
+    
 def interpret_table():
+    pd.set_option('display.max_colwidth', None)
     pd.set_option('display.max_rows', None)
     start = time.time()
     df = pd.read_csv(fileout, encoding='utf-8', sep='{S}', engine='python', nrows=None)
     end = time.time()
     print('Load time: '+str(end-start))
-
+    print("Original size: " + str(len(df)))
+    
     start = time.time()
     df = df.fillna('')
     df = df.drop(['SOURCE_URL', 'DATE_TIME_SCRAPED', 'SOURCE_NAME'], axis=1)
     df = df.query('CONCEPT_TYPE == "  drug "')
-    df = df.groupby(['CUI'])['MAY_TREAT'].agg('|'.join).reset_index()
-    print(df.head(100))
+    df = df.groupby(['CUI'])['MAY_TREAT'].agg('.'.join).reset_index()
+    print(df.head(5))
     end = time.time()
     print('Group by CUI time: '+str(end-start))
 
@@ -80,11 +93,11 @@ def get_statistics():
     df = pd.read_parquet(newcsvout, engine="pyarrow")
     total_len = len(df)
     CUI_num = (df['MAY_TREAT'] =='').sum()
-    print(df.head(100))
+    # print(df.head(100))
     print("total len: " + str(total_len))
     print("misses: " + str(CUI_num))
    
 remove_fluff(filein,fileout) 
 error_checking()
-# interpret_table()
-# get_statistics()
+interpret_table()
+get_statistics()
